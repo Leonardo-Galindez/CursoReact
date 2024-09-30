@@ -43,10 +43,20 @@ Alternativa a margin de componenetes
     padding: 6px 16px;
     border-radius: 999px;
     font-weight: bold;
-
+    transition: .3s ease background-color;
 }
 
 .tw-followCard-button:hover {
     background-color: #09f;
-    transition: .3s ease background-color;
+
+}
+
+.tw-followCard-button.is-following {
+    border: 1px solid rgb(133, 133, 133);
+    background-color: black;
+    color: rgb(199, 199, 199);
+}
+
+.tw-followCard-button.is-following:hover {
+    background: red;
 }

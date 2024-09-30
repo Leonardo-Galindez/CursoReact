@@ -1,7 +1,6 @@
 import './App.css'
 import { TwitterFollowCard } from './TwitterFollowCard'
 
-
 export function App() {
     const format = (userName) => `@${userName}`
     //creamos el objeto user
@@ -14,7 +13,8 @@ export function App() {
         <section className='App'>
             <TwitterFollowCard
                 formatUserName={format}
-                isFollowing userName="midudev"
+                isFollowing 
+                userName="midudev"
                 name="Leonardo David Galindez"
             />
             <TwitterFollowCard
@@ -24,19 +24,13 @@ export function App() {
             />
             <TwitterFollowCard
                 formatUserName={format}
-                isFollowing={false} 
+                isFollowing={true} 
                 name="Leonardo David Galindez"
             />
 
             <TwitterFollowCard formatUserName={format} isFollowing={false} userName="fede">
                 <strong>Leonardo David Galindez</strong>
-            </TwitterFollowCard>
-            
-            
-            
+            </TwitterFollowCard>       
         </section>
-
-
-
     )
 }
