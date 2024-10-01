@@ -5,30 +5,63 @@ const TURNS = {
   O: 'o'
 }
 
-
+const WINNER_COMBOS = [
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6] 
+]
 
 const Square = ({ children, isSelected, updateBoard, index }) => {
   const className = `square ${isSelected ? 'is-selected' : ''}`;
 
   const handleClick = () => {
-    updateBoard()
+    updateBoard(index)
   }
 
   return (
     <div onClick={handleClick} className={className}>
-      {children}
+      {children} 
     </div>
   )
 }
 
+
+
 function App() {
-  //los estados siempre en app
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
+  const [winner,setWinner] = useState(null)
 
-  const updateBoard = () => {
+
+  const updateBoard = (index) => {
+    // Verificar si la casilla ya tiene algo
+    if (board[index] || winner) return
+    const newBoard = [...board]
+    newBoard[index] = turn
+    setBoard(newBoard)
+
+    // Cambiar el turno
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
+
+    const newWinner = checkWinner(newBoard)
+    if(newWinner){
+      setWinner(newWinner)
+    }
+  }
+
+  const checkWinner = (boartToCheck) =>{
+    for(const combo of WINNER_COMBOS){
+      const [a,b,c] = combo
+      if(boartToCheck[a] && boartToCheck[a] === boartToCheck[b] && boartToCheck[a] === boartToCheck[c]){
+          return boartToCheck[a]
+      }
+    }
+    return null
   }
 
   return (
@@ -36,13 +69,14 @@ function App() {
       <h1>Tic-Tac-Toe</h1>
       <section className="game">
         {
-          board.map((_, index) => {
+          board.map((square, index) => {
             return (
               <Square
-                hey={index}
+                key={index}
                 index={index}
-                updateBoard={updateBoard}//pasamos la funcion no la ejecución
+                updateBoard={updateBoard}
               >
+                {square}
               </Square>
             )
           })
@@ -60,4 +94,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
