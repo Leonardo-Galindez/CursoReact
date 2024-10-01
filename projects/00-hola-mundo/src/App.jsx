@@ -4,44 +4,91 @@ import { useState } from 'react' //hooks o utilidad
 export function App() {
     const format = (userName) => `@${userName}`
     //creamos el objeto user
-    const user1 = { isFollowing: true, userName: 'midudev' }
+    const user1 = { initialIsFollowing: true, userName: 'midudev' }
     //mandar como objeto a el componenete como promps
-    const [nombre, setName] = useState('midudev')
-    console.log('nombre', nombre)
+    /*const [nombre, setName] = useState('midudev')
+    console.log('nombre', nombre)*/
+
+    const users = [
+        {
+            userName: 'midudev',
+            name: 'Leonardo David Galindez',
+            isFollowing: true
+        }
+        ,
+        {
+            userName: 'fede',
+            name: 'Federico Fernan',
+            isFollowing: false
+        }
+        ,
+        {
+            userName: 'Juan',
+            name: 'Juan Fernan',
+            isFollowing: true
+        }
+        ,
+        {
+            userName: 'Ricardo',
+            name: 'Ricardo Fernan',
+            isFollowing: false
+        }
+    ]
 
     return (
 
         // <> ó React.Fragment
         //isFollowing={true} o isFollowing
         //mandar funciones como parametros o props
-        
+
         //render
         <section className='App'>
-            <TwitterFollowCard
+
+            {//llaves porque lo que devuelve el mapero de usuarios es lo que queremos renderizar
+                users.map(user => {
+                    const { userName, name, isFollowing } = user
+                    return (
+                        <TwitterFollowCard 
+                            key={userName}
+                            formatUserName={format} 
+                            userName={userName} 
+                            initialIsFollowing={isFollowing}>
+                            {name}
+                        </TwitterFollowCard>
+                    )
+                })
+            }
+
+            {/*<TwitterFollowCard
                 formatUserName={format}
-                isFollowing
+                initialIsFollowing={true}
                 userName="midudev"
                 name="Leonardo David Galindez"
             />
-            {/*comentario en el render*/}
+            {/*comentario en el render
             <TwitterFollowCard
                 formatUserName={format}
-                isFollowing={false} userName={nombre}
-                name={nombre}
+                initialIsFollowing={false}
+                userName="gali"
+                name="fede"
             />
             <TwitterFollowCard
                 formatUserName={format}
-                isFollowing={true}
-                name={nombre}
+                initialIsFollowing={true}
+                name="julio"
             />
 
-            <TwitterFollowCard formatUserName={format} isFollowing={false} userName="fede">
+            <TwitterFollowCard
+                formatUserName={format}
+                initialIsFollowing={false}
+                userName="fede">
+
                 <strong>Leonardo David Galindez</strong>
             </TwitterFollowCard>
-
-            <button onClick={() => setName('leonardo')}>
+                
+            {/*<button onClick={() => setName('leonardo')}>
                 Cambio Nombre
-            </button>
+            </button>*/}
 
         </section>
     )
